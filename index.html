@@ -287,7 +287,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .route__dot { fill: var(--ink-800); stroke: var(--accent); stroke-width: 3; }
 .route__end { fill: var(--accent); }
 .route__ring { fill: none; stroke: var(--accent); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
-.route.is-arrived .route__ring { animation: arrive 1.6s var(--ease) 1; }
+.rig-arrived .route__ring { animation: arrive 1.6s var(--ease) 1; }
 @keyframes arrive { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(4.5); opacity: 0; } }
 
 .route__step { position: absolute; width: 31%; }
@@ -484,12 +484,6 @@ address { font-style: normal; }
 }
 @media (max-width: 70rem) {
   .route__layout { grid-template-areas: "head" "stage"; }
-}
-@media (max-width: 52rem) {
-  .route__copy { position: relative; padding-left: var(--s-6); }
-  .route__copy::before, .route__copy::after { content: ""; position: absolute; left: 0.3rem; top: 0.3rem; bottom: 0.3rem; width: 2px; }
-  .route__copy::before { background: rgba(232, 238, 243, 0.16); }
-  .route__copy::after { background: var(--accent); transform-origin: top; transform: scaleY(var(--p, 1)); }
 }
 @media (max-width: 60rem) { .footer__grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 34rem) { .footer__grid { grid-template-columns: 1fr; } }
@@ -712,6 +706,35 @@ address { font-style: normal; }
   .js .testi-scene .testi-pin { position: static; min-height: 0; display: block; padding-block: 0; }
   .js .testi-scene .tslider__track { overflow-x: auto; touch-action: auto; cursor: grab; }
 }
+
+/* ---- phone fixes ---- */
+.route__stage--m { display: none; }
+@media (max-width: 52rem) {
+  .route__stage--d { display: none; }
+  .route__stage--m { display: block; width: min(100%, 24rem); aspect-ratio: 360 / 480; margin: var(--s-6) auto var(--s-5) 0; }
+  .route__stage--m svg { width: 100%; height: 100%; overflow: visible; }
+  .route__copy p { max-width: none; }
+  .route__btn { margin-top: var(--s-5); }
+}
+/* why: heading, list, then button (button last on phones) */
+.why { grid-template-areas: "head list" "cta list"; grid-template-rows: auto 1fr; }
+.why__head { grid-area: head; }
+.why__list { grid-area: list; }
+.why__cta { grid-area: cta; margin-top: var(--s-5); align-self: start; }
+@media (max-width: 60rem) {
+  .why { grid-template-areas: "head" "list" "cta"; grid-template-rows: auto; }
+  .why__cta { margin-top: var(--s-2); }
+  .figs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); margin-top: var(--s-7); }
+  .fig__v { font-size: var(--step-3); }
+  .fig { padding-left: var(--s-3); border-left: 1px solid rgba(232, 238, 243, 0.14); }
+  .fig:first-child { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 30rem) { .fig__v { font-size: var(--step-2); } .fig__l { font-size: 0.78rem; } }
+@media (max-width: 48rem) {
+  .hero__layer { inset: auto -4% -4% -90%; height: 56%; }
+  .hero__inner { padding-block: var(--s-7) 15rem; }
+}
+@media (max-width: 25rem) { .hero__layer { inset: auto -4% -4% -104%; } }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "BMSC Global", "url": "https://www.bmscglobal.co.uk/", "email": "sales@bmscglobal.co.uk", "address": {"@type": "PostalAddress", "streetAddress": "Chandos Business Centre, 87 Warwick Street", "addressLocality": "Royal Leamington Spa", "addressRegion": "Warwickshire", "postalCode": "CV32 4RJ", "addressCountry": "GB"}}</script>
 </head>
@@ -809,9 +832,23 @@ address { font-style: normal; }
         <div class="route__head route__copy">
           <h2 id="route-title">How We Work?</h2>
           <p data-read="route">Our UK based sales and marketing team interacts with the consumers while our project management team is working very closely with our overseas clients at their locations. This enables us to manage every step from production to delivery of goods with total satisfaction for all parties involved.</p>
+          <div class="route__stage--m" data-rig data-rig-m>
+            <svg viewBox="0 0 360 480" fill="none" aria-hidden="true">
+              <path class="route__base" d="M50 30C50 100 300 80 300 150S60 200 60 270S290 330 290 410" stroke-width="3" stroke-linecap="round"/>
+              <path class="route__line" data-route-line d="M50 30C50 100 300 80 300 150S60 200 60 270S290 330 290 410" stroke-width="4" stroke-linecap="round"/>
+              <circle class="route__dot" cx="50" cy="30" r="9"/>
+              <circle class="route__dot" cx="300" cy="150" r="9"/>
+              <circle class="route__dot" cx="60" cy="270" r="9"/>
+              <circle class="route__ring" cx="290" cy="410" r="11"/>
+              <circle class="route__halo" data-route-halo cx="50" cy="30" r="18" opacity="0"/>
+              <circle class="route__pulse" data-route-pulse cx="50" cy="30" r="6" opacity="0"/>
+              <circle class="route__end" cx="290" cy="410" r="11"/>
+              <text x="290" y="452" text-anchor="end" fill="#e8eef3" font-family="Public Sans, system-ui, sans-serif" font-size="17" font-weight="600">Royal Leamington Spa</text>
+            </svg>
+          </div>
           <div class="route__btn"><a class="btn btn--primary" href="#">Contact <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10h13M11 4l6 6-6 6"/></svg></a></div>
         </div>
-        <div class="route__stage">
+        <div class="route__stage route__stage--d" data-rig>
           <svg class="route__svg" viewBox="0 0 1200 700" fill="none" aria-hidden="true">
             <path class="route__base" d="M60 420C240 420 300 250 520 250C740 250 720 430 900 430C1040 430 1060 180 1140 160" stroke-width="3" stroke-linecap="round"/>
             <path class="route__line" data-route-line d="M60 420C240 420 300 250 520 250C740 250 720 430 900 430C1040 430 1060 180 1140 160" stroke-width="4" stroke-linecap="round"/>
@@ -832,15 +869,15 @@ address { font-style: normal; }
 
 <section class="scene scene--light" aria-labelledby="why-title">
   <div class="container why">
-    <div class="reveal">
+    <div class="reveal why__head">
       <h2 id="why-title">Why we are different?</h2>
-      <div class="why__cta"><a class="btn btn--dark" href="#">Contact <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10h13M11 4l6 6-6 6"/></svg></a></div>
     </div>
     <div class="why__list why__list--light" data-why>
       <div><p>We have over 40 years of experience in total within our highly skilled team and are able to provide a range of services to our clients throughout the supply chain, with a specialised focus upon the representation of overseas companies.</p></div>
       <div><p>Utilising our extensive network of contacts and relationships, we are able to offer our clients an opportunity to establish or improve a business link to the UK market.</p></div>
       <div><p>We are able to offer various services to our clients based on their needs and aspirations, ranging from industry specific network creation through to providing a full outsourced service for their marketing needs as we firmly believe there is not a single solution fit for all.</p></div>
     </div>
+    <div class="why__cta"><a class="btn btn--dark" href="#">Contact <svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10h13M11 4l6 6-6 6"/></svg></a></div>
   </div>
 </section>
 
@@ -1046,7 +1083,7 @@ address { font-style: normal; }
   function updateReads(vh) {
     reads.forEach(function (r) {
       if (!r.words.length) return;
-      if (r.route) return; /* driven by the route progress */
+      if (r.route && route && route.classList.contains("route--scrub") && desktopRoute.matches && !reduceMotion.matches) return; /* driven by the route progress */
       var b = r.el.getBoundingClientRect();
       if (b.bottom < -50 || b.top > vh + 50) { if (b.top > vh) setWords(r, 0); return; }
       setWords(r, (vh * 0.86 - b.top) / (b.height + vh * 0.22));
@@ -1119,59 +1156,60 @@ address { font-style: normal; }
     raf = requestAnimationFrame(tick);
   }
 
-  /* ---------- the route: scroll draws the line ---------- */
-  var routeLine, routeLen = 0, steps = [], halo, pulse, dots = [];
+  /* ---------- the route: scroll draws the line (desktop graphic and phone graphic) ---------- */
+  var rigs = [], desktopRoute = window.matchMedia("(min-width: 52.01rem)");
   if (route) {
-    halo = route.querySelector("[data-route-halo]");
-    pulse = route.querySelector("[data-route-pulse]");
-    routeLine = route.querySelector("[data-route-line]");
-    steps = Array.prototype.slice.call(route.querySelectorAll("[data-step]"));
-    if (routeLine && routeLine.getTotalLength) {
-      routeLen = routeLine.getTotalLength();
-      routeLine.style.strokeDasharray = routeLen;
-      routeLine.style.strokeDashoffset = routeLen;
-      /* find how far along the path each station sits */
-      Array.prototype.forEach.call(route.querySelectorAll(".route__dot"), function (d) {
-        var cx = +d.getAttribute("cx"), cy = +d.getAttribute("cy"), best = 0, bd = Infinity;
-        for (var l = 0; l <= routeLen; l += routeLen / 400) {
-          var pt = routeLine.getPointAtLength(l), dd = (pt.x - cx) * (pt.x - cx) + (pt.y - cy) * (pt.y - cy);
-          if (dd < bd) { bd = dd; best = l; }
-        }
-        dots.push({ el: d, at: best });
-      });
-    }
+    Array.prototype.forEach.call(route.querySelectorAll("[data-rig]"), function (el) {
+      var line = el.querySelector("[data-route-line]");
+      var rig = { el: el, mobile: el.hasAttribute("data-rig-m"), line: line, len: 0, dots: [], halo: el.querySelector("[data-route-halo]"), pulse: el.querySelector("[data-route-pulse]") };
+      if (line && line.getTotalLength) {
+        rig.len = line.getTotalLength();
+        line.style.strokeDasharray = rig.len;
+        line.style.strokeDashoffset = rig.len;
+        /* find how far along the path each station sits */
+        Array.prototype.forEach.call(el.querySelectorAll(".route__dot"), function (d) {
+          var cx = +d.getAttribute("cx"), cy = +d.getAttribute("cy"), best = 0, bd = Infinity;
+          for (var l = 0; l <= rig.len; l += rig.len / 400) {
+            var pt = line.getPointAtLength(l), dd = (pt.x - cx) * (pt.x - cx) + (pt.y - cy) * (pt.y - cy);
+            if (dd < bd) { bd = dd; best = l; }
+          }
+          rig.dots.push({ el: d, at: best });
+        });
+      }
+      rigs.push(rig);
+    });
   }
-  function markRoute(p) {
-    if (!routeLine || !routeLen) return;
-    dots.forEach(function (d) { d.el.classList.toggle("is-passed", p * routeLen >= d.at - 1); });
-    if (pulse && halo) {
-      var show = p > 0.01 && p < 0.985, pt = routeLine.getPointAtLength(routeLen * p);
-      pulse.setAttribute("cx", pt.x); pulse.setAttribute("cy", pt.y);
-      halo.setAttribute("cx", pt.x); halo.setAttribute("cy", pt.y);
-      pulse.setAttribute("opacity", show ? 1 : 0); halo.setAttribute("opacity", show ? 0.28 : 0);
+  function markRig(rig, p) {
+    if (!rig.len) return;
+    rig.line.style.strokeDashoffset = rig.len * (1 - p);
+    rig.dots.forEach(function (d) { d.el.classList.toggle("is-passed", p * rig.len >= d.at - 1); });
+    if (rig.pulse && rig.halo) {
+      var show = p > 0.01 && p < 0.985, pt = rig.line.getPointAtLength(rig.len * p);
+      rig.pulse.setAttribute("cx", pt.x); rig.pulse.setAttribute("cy", pt.y);
+      rig.halo.setAttribute("cx", pt.x); rig.halo.setAttribute("cy", pt.y);
+      rig.pulse.setAttribute("opacity", show ? 1 : 0); rig.halo.setAttribute("opacity", show ? 0.28 : 0);
     }
-    reads.forEach(function (r) { if (r.route && r.words.length) setWords(r, (p - 0.04) / 0.8); });
+    rig.el.classList.toggle("rig-arrived", p > 0.96);
   }
   function updateRoute(vh) {
-    var scrub = route.classList.contains("route--scrub") && !reduceMotion.matches;
-    var b = route.getBoundingClientRect();
-    var p;
-    if (!scrub) {
-      /* phone or reduced motion: everything visible, mobile line follows the section */
-      p = reduceMotion.matches ? 1 : clamp((vh * 0.7 - b.top) / (b.height * 0.8), 0, 1);
-      if (reduceMotion.matches && routeLine) routeLine.style.strokeDashoffset = 0;
-      route.style.setProperty("--p", p.toFixed(3));
-      if (routeLine && !reduceMotion.matches) routeLine.style.strokeDashoffset = routeLen * (1 - p);
+    var scrub = route.classList.contains("route--scrub") && !reduceMotion.matches && desktopRoute.matches;
+    var b = route.getBoundingClientRect(), p = 1;
+    if (scrub) {
+      var range = b.height - vh;
+      p = range > 0 ? clamp(-b.top / range, 0, 1) : 1;
       route.classList.toggle("is-arrived", p > 0.96);
-      markRoute(reduceMotion.matches ? 1 : p);
-      return;
+      reads.forEach(function (r) { if (r.route && r.words.length) setWords(r, (p - 0.04) / 0.8); });
+    } else if (reduceMotion.matches) {
+      route.classList.add("is-arrived");
     }
-    var range = b.height - vh;
-    p = range > 0 ? clamp(-b.top / range, 0, 1) : 1;
-    if (routeLine) routeLine.style.strokeDashoffset = routeLen * (1 - p);
-    markRoute(p);
-    steps.forEach(function (el, i) { el.classList.toggle("is-on", p >= [0.02, 0.36, 0.7][i]); });
-    route.classList.toggle("is-arrived", p > 0.96);
+    rigs.forEach(function (rig) {
+      if (reduceMotion.matches) { markRig(rig, 1); return; }
+      if (rig.mobile) {
+        if (desktopRoute.matches) return;
+        var r = rig.el.getBoundingClientRect();
+        markRig(rig, clamp((vh * 0.9 - r.top) / (r.height + vh * 0.15), 0, 1));
+      } else if (scrub) markRig(rig, p);
+    });
   }
 
   /* ---------- services: accessible tabs ---------- */
